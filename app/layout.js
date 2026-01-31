@@ -14,7 +14,9 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="ko" suppressHydrationWarning>
-      <body className={`${gowunBatang.className} antialiased`}>{children}</body>
+      <body className={`${gowunBatang.className} antialiased`} suppressHydrationWarning>
+        {children}
+      </body>
     </html>
   );
 }

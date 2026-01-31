@@ -344,7 +344,7 @@ Ahmad Jamal. 2013.
 `
         }
       ] },
-    audioUrl: "/audio/track-1.mp3",
+    audioUrl: "/audio/THX, AHMAD! (THE SOUND OF YANCEY CLUB 1).mp3",
   },
   {
     id: 2,

@@ -43,56 +43,37 @@ export const useAudioPlayer = (audioUrl, volume, isMuted) => {
     const steps = 20;
 
     // 새 오디오 준비
-    const newAudio = new Audio();
+    const newAudio = new Audio(audioUrl);
     newAudio.volume = 0;
     newAudio.loop = true;
 
-    // 오디오 에러 처리
-    newAudio.addEventListener("error", (e) => {
-      console.log("Audio file not available:", audioUrl);
-      setIsPlaying(false);
-    });
-
-    // 소스 설정
-    newAudio.src = audioUrl;
-
     const playNewAudio = () => {
-      // 오디오가 로드되지 않았으면 재생하지 않음
-      if (newAudio.error || newAudio.networkState === 3) {
-        console.log("Audio not available, skipping playback");
-        return;
-      }
-
       const targetVolume = isMuted ? 0 : volume;
 
       newAudio
-        .play()
-        .then(() => {
-          setIsPlaying(true);
-          pendingAudioUrl.current = null;
+          .play()
+          .then(() => {
+            setIsPlaying(true);
+            pendingAudioUrl.current = null;
 
-          let fadeInStep = 0;
-          const fadeInInterval = setInterval(() => {
-            fadeInStep++;
-            const progress = fadeInStep / steps;
-            newAudio.volume = Math.min(targetVolume, targetVolume * progress);
+            let fadeInStep = 0;
+            const fadeInInterval = setInterval(() => {
+              fadeInStep++;
+              const progress = fadeInStep / steps;
+              newAudio.volume = Math.min(targetVolume, targetVolume * progress);
 
-            if (fadeInStep >= steps) {
-              newAudio.volume = targetVolume;
-              clearInterval(fadeInInterval);
-              setIsTransitioning(false);
-            }
-          }, fadeInDuration / steps);
-        })
-        .catch((err) => {
-          if (err.name === "NotSupportedError" || err.name === "NotAllowedError") {
-            console.log("Audio playback not available");
-          } else {
+              if (fadeInStep >= steps) {
+                newAudio.volume = targetVolume;
+                clearInterval(fadeInInterval);
+                setIsTransitioning(false);
+              }
+            }, fadeInDuration / steps);
+          })
+          .catch((err) => {
             console.log("Audio autoplay blocked, waiting for user interaction");
-          }
-          pendingAudioUrl.current = audioUrl;
-          setIsPlaying(false);
-        });
+            pendingAudioUrl.current = audioUrl;
+            setIsPlaying(false);
+          });
     };
 
     // 이전 오디오가 있으면 크로스페이드
