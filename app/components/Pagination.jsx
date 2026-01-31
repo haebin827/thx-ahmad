@@ -46,7 +46,7 @@ export default function Pagination() {
         <div className="w-10" />
       )}
 
-      <h1 className="text-2xl font-bold text-center max-w-xs sm:max-w-md truncate">
+      <h1 className="text-base sm:text-xl md:text-2xl font-bold text-center max-w-[280px] sm:max-w-md truncate">
         {title}
       </h1>
 

@@ -6,7 +6,7 @@ import { albumData } from "../data/albumData";
 
 // 화자 이름 컴포넌트
 function Speaker({ name }) {
-  return <h3 className="text-3xl font-bold mt-12 mb-12 text-black">{name}</h3>;
+  return <h3 className="md:text-3xl text-xl font-bold mt-12 mb-12 text-black">{name}</h3>;
 }
 
 // 텍스트 컴포넌트 (줄바꿈 지원)

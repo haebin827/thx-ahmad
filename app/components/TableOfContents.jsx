@@ -5,6 +5,8 @@ import { useRouter } from "next/navigation";
 import { useAppStore } from "../store/useAppStore";
 import { tableOfContents } from "../data/albumData";
 import { HiOutlineMenu, HiX } from "react-icons/hi";
+import {BiFoodMenu} from "react-icons/bi";
+import {MdOutlineMenuBook} from "react-icons/md";
 
 export default function TableOfContents() {
   const [isOpen, setIsOpen] = useState(false);
@@ -32,7 +34,7 @@ export default function TableOfContents() {
         aria-label="목차 열기"
         aria-expanded={isOpen}
       >
-        <HiOutlineMenu className="w-6 h-6" />
+        <MdOutlineMenuBook className="w-6 h-6" />
       </button>
 
       {/* 모달 오버레이 */}

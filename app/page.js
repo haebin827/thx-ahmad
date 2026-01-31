@@ -39,7 +39,7 @@ function HomeContent() {
       <Navbar />
 
       {/* 메인 콘텐츠 */}
-      <main className="min-h-screen pt-30 pb-30">
+      <main className="min-h-screen md:pt-30 pt-25 md:pb-30 pb-25">
         <div className="max-w-3xl mx-auto px-4">
           {/* Pagination */}
           <Pagination />
