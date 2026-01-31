@@ -284,9 +284,9 @@ SAMO KHIYOTA`,
     id: 1,
     trackNumber: 1,
     title: {
-      ko: "1. 전달자들로부터",
-      en: "1. The words of the vessels",
-      ja: "1. 器たちの言葉",
+      ko: "전달자들로부터",
+      en: "The words of the vessels",
+      ja: "器たちの言葉",
     },
     content: { ko: [
         { type: "speaker", name: "아마드 AHMAD" },
@@ -350,9 +350,9 @@ Ahmad Jamal. 2013.
     id: 2,
     trackNumber: 2,
     title: {
-      ko: "2. 돌이켜보면",
-      en: "2. Upon looking back",
-      ja: "2. 振り返ってみると",
+      ko: "돌이켜보면",
+      en: "Upon looking back",
+      ja: "振り返ってみると",
     },
     content: { ko: [
         { type: "speaker", name: "율 律" },
@@ -467,12 +467,12 @@ If I had not met Yul (律) then, I would not have endured any longer.
     audioUrl: "/audio/track-2.mp3",
   },
   {
-    id: 3,
-    trackNumber: 3,
+    id: 2,
+    trackNumber: 2,
     title: {
-      ko: "2. 돌이켜 보면 (2)",
-      en: "2. Upon looking back (2)",
-      ja: "2. 振り返ってみると (2)",
+      ko: "돌이켜보면 (2)",
+      en: "Upon looking back (2)",
+      ja: "振り返ってみると (2)",
     },
     content: { ko: [], en: [], ja: [] },
     audioUrl: "/audio/track-3.mp3",
@@ -706,3 +706,21 @@ export const tableOfContents = albumData.map((track) => ({
 }));
 
 export const TOTAL_PAGES = albumData.length;
+
+// URL 생성 헬퍼 함수
+export const getTrackUrl = (index) => {
+  const track = albumData[index];
+  if (!track) return '/';
+  const id = track.id;
+  const title = encodeURIComponent(track.title.ko);
+  return `/${id}/${title}`;
+};
+
+// id와 title로 배열 인덱스 찾기
+export const findTrackIndex = (id, title) => {
+  const decodedTitle = decodeURIComponent(title);
+  const index = albumData.findIndex(
+    (track) => track.id === parseInt(id, 10) && track.title.ko === decodedTitle
+  );
+  return index >= 0 ? index : 0;
+};

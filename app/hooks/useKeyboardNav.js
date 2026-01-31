@@ -3,7 +3,7 @@
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useAppStore } from "../store/useAppStore";
-import { TOTAL_PAGES } from "../data/albumData";
+import { TOTAL_PAGES, getTrackUrl } from "../data/albumData";
 
 export const useKeyboardNav = () => {
   const router = useRouter();
@@ -25,14 +25,14 @@ export const useKeyboardNav = () => {
           if (currentPage > 0) {
             const prevPage = currentPage - 1;
             setCurrentPage(prevPage);
-            router.push(`/?page=${prevPage}`, { scroll: false });
+            router.push(getTrackUrl(prevPage), { scroll: false });
           }
           break;
         case "ArrowRight":
           if (currentPage < TOTAL_PAGES - 1) {
             const nextPage = currentPage + 1;
             setCurrentPage(nextPage);
-            router.push(`/?page=${nextPage}`, { scroll: false });
+            router.push(getTrackUrl(nextPage), { scroll: false });
           }
           break;
         default:

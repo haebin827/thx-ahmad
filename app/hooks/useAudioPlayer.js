@@ -43,11 +43,26 @@ export const useAudioPlayer = (audioUrl, volume, isMuted) => {
     const steps = 20;
 
     // 새 오디오 준비
-    const newAudio = new Audio(audioUrl);
+    const newAudio = new Audio();
     newAudio.volume = 0;
     newAudio.loop = true;
 
+    // 오디오 에러 처리
+    newAudio.addEventListener("error", (e) => {
+      console.log("Audio file not available:", audioUrl);
+      setIsPlaying(false);
+    });
+
+    // 소스 설정
+    newAudio.src = audioUrl;
+
     const playNewAudio = () => {
+      // 오디오가 로드되지 않았으면 재생하지 않음
+      if (newAudio.error || newAudio.networkState === 3) {
+        console.log("Audio not available, skipping playback");
+        return;
+      }
+
       const targetVolume = isMuted ? 0 : volume;
 
       newAudio
@@ -70,7 +85,11 @@ export const useAudioPlayer = (audioUrl, volume, isMuted) => {
           }, fadeInDuration / steps);
         })
         .catch((err) => {
-          console.log("Audio autoplay blocked, waiting for user interaction");
+          if (err.name === "NotSupportedError" || err.name === "NotAllowedError") {
+            console.log("Audio playback not available");
+          } else {
+            console.log("Audio autoplay blocked, waiting for user interaction");
+          }
           pendingAudioUrl.current = audioUrl;
           setIsPlaying(false);
         });

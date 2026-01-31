@@ -1,7 +1,7 @@
 "use client";
 
 import { useAppStore } from "../store/useAppStore";
-import { albumData, TOTAL_PAGES } from "../data/albumData";
+import { albumData, TOTAL_PAGES, getTrackUrl } from "../data/albumData";
 import { HiChevronLeft, HiChevronRight } from "react-icons/hi";
 import { useRouter } from "next/navigation";
 
@@ -10,14 +10,14 @@ export default function Pagination() {
   const { currentPage, setCurrentPage, language } = useAppStore();
 
   const currentTrack = albumData[currentPage];
-  const title = currentTrack?.title[language] || "";
+  const title = currentTrack?.id + '. ' + currentTrack?.title[language] || "";
 
   const isFirst = currentPage === 0;
   const isLast = currentPage === TOTAL_PAGES - 1;
 
   const goToPage = (page) => {
     setCurrentPage(page);
-    router.push(`/?page=${page}`, { scroll: false });
+    router.push(getTrackUrl(page), { scroll: false });
   };
 
   const goToPreviousPage = () => {

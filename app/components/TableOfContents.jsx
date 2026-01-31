@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useAppStore } from "../store/useAppStore";
-import { tableOfContents } from "../data/albumData";
+import { tableOfContents, albumData, getTrackUrl } from "../data/albumData";
 import { HiOutlineMenu, HiX } from "react-icons/hi";
 import {BiFoodMenu} from "react-icons/bi";
 import {MdOutlineMenuBook} from "react-icons/md";
@@ -15,7 +15,7 @@ export default function TableOfContents() {
 
   const handleSelectPage = (pageIndex) => {
     setCurrentPage(pageIndex);
-    router.push(`/?page=${pageIndex}`, { scroll: false });
+    router.push(getTrackUrl(pageIndex), { scroll: false });
     setIsOpen(false);
   };
 
@@ -81,7 +81,7 @@ export default function TableOfContents() {
                     currentPage === index ? "bg-gray-100 font-medium" : ""
                   }`}
                 >
-                  {/*{item.id}. */}{item.title[language]}
+                  {item.id}. {item.title[language]}
                 </button>
               ))}
             </div>

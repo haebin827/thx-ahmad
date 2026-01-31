@@ -76,3 +76,23 @@ input[type="range"]::-moz-range-thumb {
   cursor: pointer;
   border: none;
 }
+
+/* 텍스트 선택 시 노란색 하이라이트 */
+::selection {
+  background-color: #fef08a !important;
+  color: #000 !important;
+}
+
+::-moz-selection {
+  background-color: #fef08a !important;
+  color: #000 !important;
+}
+
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+*::selection {
+  background-color: #fef08a !important;
+  color: #000 !important;
+}
